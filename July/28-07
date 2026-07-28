@@ -1,0 +1,55 @@
+You are given a palindromic string s.
+
+Return the lexicographically smallest palindromic permutation of s.
+
+ 
+
+Example 1:
+
+Input: s = "z"
+
+Output: "z"
+
+Explanation:
+
+A string of only one character is already the lexicographically smallest palindrome.
+Example 2:
+
+Input: s = "babab"
+
+Output: "abbba"
+
+Explanation:
+
+Rearranging "babab" → "abbba" gives the smallest lexicographic palindrome.
+
+
+## code
+
+class Solution:
+    def smallestPalindrome(self, s: str) -> str:
+        if len(s)<1:
+            return 0
+
+        if len(s)==1:
+            return s
+        
+        hash_map={}
+
+        n=len(s)
+        for i in range(0,n):
+            hash_map[s[i]]=hash_map.get(s[i],0)+1
+
+        left=[]
+        middle=""
+
+        for ch in sorted(hash_map):
+            left.append(ch*(hash_map[ch]//2))
+
+            if hash_map[ch]%2==1:
+                middle=ch
+
+        left=''.join(left)
+
+        return left+middle+left[::-1]
+        
