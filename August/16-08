@@ -1,0 +1,49 @@
+Min Product Subset
+
+Given an integer array arr[], find the minimum possible product that can be obtained by multiplying the elements of any non-empty subset of the array.
+
+Examples:
+
+Input: arr[] = [1, 2, 3]
+Output: 1
+Explanation: The possible subset products are 1, 2, 3, 2, 3, 6, and 6. The minimum product is 1, obtained by selecting the subset [1].
+Input: arr[] = [4, -2, 5]
+Output: -40
+Explanation: The minimum product is -40, obtained by selecting the subset [4, -2, 5].
+
+Constraints:
+
+1 ≤ arr.size() ≤ 10
+-10 ≤ arr[i] ≤ 10
+
+class Solution:
+    def minProd(self, arr):
+        neg_cnt = 0
+        pro = 1
+        small_neg = float("-inf")
+        zero = False
+
+        for x in arr:
+
+            if x != 0:
+                pro *= x
+
+                if x < 0:
+                    neg_cnt += 1
+                    small_neg = max(small_neg, x)
+
+            else:
+                zero = True
+
+        # No negative numbers
+        if neg_cnt == 0:
+            if zero:
+                return 0
+            return min(arr)
+
+        # Odd number of negatives
+        if neg_cnt % 2 == 1:
+            return pro
+
+        # Even number of negatives
+        return pro // small_neg
