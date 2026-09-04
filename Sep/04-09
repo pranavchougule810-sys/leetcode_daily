@@ -1,4 +1,4 @@
-LC 3903
+LC 3903,
 You are given an integer array nums of length n and an integer k.
 
 For each index i, define its instability score as max(nums[0..i]) - min(nums[i..n - 1]).
